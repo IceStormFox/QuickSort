@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 namespace QuickSort
 {
@@ -12,7 +10,7 @@ namespace QuickSort
         {
             string czytnik;
             int indeks = 0;
-            int[] array = new int[200001];
+            int[] array = new int[200000];
             Stopwatch timer = new Stopwatch();
             StreamReader dane;
 
@@ -24,8 +22,9 @@ namespace QuickSort
             }
 
             timer.Start();
-            SortEngine.Sort(array, 0 ,array.Length);
+            SortEngine.Sort(array, 0, array.Length - 1);
             timer.Stop();
+
 
             Console.WriteLine("Czas wykonania sortowania: {0} ms", timer.ElapsedMilliseconds);
         }

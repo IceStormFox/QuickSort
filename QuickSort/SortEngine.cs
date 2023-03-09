@@ -2,33 +2,41 @@
 {
     internal class SortEngine
     {
-        public static void Sort(int[] array, int l, int arrayLength)
+        public static int[] Sort(int[] array, int left, int right)
         {
-
-            int i = l;
-            int j = arrayLength - 1;
-            int pivot = array[(l + arrayLength - 1) / 2];
-            while (i < j)
+            if (left < right)
             {
-                while (array[i] < pivot)
+                int pivotIndex = Partition(array, left, right);
+
+                Sort(array, left, pivotIndex - 1);
+                Sort(array, pivotIndex + 1, right);
+            }
+
+            return array;
+        }
+
+        private static int Partition(int[] array, int left, int right)
+        {
+            int pivotValue = array[right];
+            int i = left - 1;
+
+            for (int j = left; j < right; j++)
+            {
+                if (array[j] < pivotValue)
                 {
                     i++;
-                }
-
-                while (array[j] > pivot)
-                {
-                    j--;
-                }
-                if (i <= j)
-                {
-                    int zmienna = array[i];
-                    array[i++] = array[j];
-                    array[j--] = zmienna;
+                    Swap(array, i, j);
                 }
             }
-            if (l < j) Sort(array, l, j);
-            if (i < arrayLength - 1) Sort(array, i, arrayLength - 1);
 
+            Swap(array, i + 1, right);
+
+            return i + 1;
+        }
+
+        private static void Swap(int[] arr, int i, int j)
+        {
+            (arr[j], arr[i]) = (arr[i], arr[j]);
         }
     }
 }
